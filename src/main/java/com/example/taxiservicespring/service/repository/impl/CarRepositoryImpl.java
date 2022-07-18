@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.springframework.stereotype.Component;
 
+import com.example.taxiservicespring.service.exception.EntityNotFoundException;
 import com.example.taxiservicespring.service.model.Car;
 import com.example.taxiservicespring.service.model.CarStatus;
 import com.example.taxiservicespring.service.repository.CarModelRepository;
@@ -60,7 +61,7 @@ public class CarRepositoryImpl implements CarRepository {
         return cars.stream()
                 .filter(car -> car.getId() == id)
                 .findFirst()
-                .orElseThrow(() -> new RuntimeException("Car is not found!"));
+                .orElseThrow(() -> new EntityNotFoundException("Car is not found!"));
     }
 
     @Override
@@ -71,7 +72,7 @@ public class CarRepositoryImpl implements CarRepository {
                         && carModelRepository.find(car.getModelId()).getSeatCount() >= capacity
                         && car.getStatus().equals(CarStatus.READY))
                 .findFirst()
-                .orElseThrow(() -> new RuntimeException("Car is not found!"));
+                .orElseThrow(() -> new EntityNotFoundException("Car is not found!"));
     }
 
     @Override
@@ -81,7 +82,7 @@ public class CarRepositoryImpl implements CarRepository {
                 .filter(car -> carModelRepository.find(car.getModelId()).getSeatCount() >= capacity
                         && car.getStatus().equals(CarStatus.READY))
                 .findFirst()
-                .orElseThrow(() -> new RuntimeException("Car is not found!"));
+                .orElseThrow(() -> new EntityNotFoundException("Car is not found!"));
     }
 
     @Override
@@ -101,7 +102,7 @@ public class CarRepositoryImpl implements CarRepository {
         }
 
         if (currentCapacity < capacity) {
-            throw new RuntimeException("Not enough cars in this category!");
+            throw new EntityNotFoundException("Not enough cars in this category!");
         }
         return result;
     }

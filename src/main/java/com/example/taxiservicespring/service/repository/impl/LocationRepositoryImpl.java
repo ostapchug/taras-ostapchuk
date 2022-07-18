@@ -6,6 +6,7 @@ import java.util.List;
 
 import org.springframework.stereotype.Component;
 
+import com.example.taxiservicespring.service.exception.EntityNotFoundException;
 import com.example.taxiservicespring.service.model.Location;
 import com.example.taxiservicespring.service.repository.LocationRepository;
 
@@ -64,7 +65,7 @@ public class LocationRepositoryImpl implements LocationRepository {
         return locations.stream()
                 .filter(location -> location.getId() == id)
                 .findFirst()
-                .orElseThrow(() -> new RuntimeException("Location is not found!"));
+                .orElseThrow(() -> new EntityNotFoundException("Location is not found!"));
     }
 
     @Override

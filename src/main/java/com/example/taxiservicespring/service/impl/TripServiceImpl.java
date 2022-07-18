@@ -19,6 +19,7 @@ import com.example.taxiservicespring.controller.dto.TripConfirmDto;
 import com.example.taxiservicespring.controller.dto.TripCreateDto;
 import com.example.taxiservicespring.controller.dto.TripDto;
 import com.example.taxiservicespring.service.TripService;
+import com.example.taxiservicespring.service.exception.DataProcessingException;
 import com.example.taxiservicespring.service.mapper.CarMapper;
 import com.example.taxiservicespring.service.mapper.TripMapper;
 import com.example.taxiservicespring.service.model.Car;
@@ -178,7 +179,7 @@ public class TripServiceImpl implements TripService {
         BigDecimal distance = getDistance(originId, destinationId);
         
         if (distance.compareTo(MIN_DICTANCE) < 0) {
-            throw new RuntimeException("Distance is not enough!");
+            throw new DataProcessingException("Distance is not enough!");
 
         } 
         return distance; 

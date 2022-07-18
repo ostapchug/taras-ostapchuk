@@ -11,6 +11,7 @@ import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Component;
 
+import com.example.taxiservicespring.service.exception.EntityNotFoundException;
 import com.example.taxiservicespring.service.model.Car;
 import com.example.taxiservicespring.service.model.Trip;
 import com.example.taxiservicespring.service.model.TripStatus;
@@ -31,7 +32,7 @@ public class TripRepositoryImpl implements TripRepository {
         return trips.stream()
                 .filter(trip -> trip.getId() == id)
                 .findFirst()
-                .orElseThrow(() -> new RuntimeException("Trip is not found!"));
+                .orElseThrow(() -> new EntityNotFoundException("Trip is not found!"));
     }
 
     @Override
